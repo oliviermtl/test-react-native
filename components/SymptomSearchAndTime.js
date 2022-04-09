@@ -1,12 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import SymptomsModal from "./SymptomsModal";
+import SymptomsAddModal from "./SymptomsAddModal";
 import DateTimeModal from "./DateTimeModal";
+import { Colors } from "../constants/colors";
 
 const SymptomSearchAndTime = () => {
   return (
     <View style={styles.input}>
-      <SymptomsModal />
+      <SymptomsAddModal />
       <DateTimeModal />
     </View>
   );
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderWidth: 1,
     borderRadius: 8,
-    backgroundColor: "#ebf5fe",
+    backgroundColor: Colors.lightBlue,
     borderTopColor: "#e7f1f7",
     borderLeftColor: "#e7f1f7",
     borderBottomColor: "#f6f9fd",

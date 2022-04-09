@@ -2,8 +2,9 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import React, { useState } from "react";
 import Button from "./Button";
 import ModalBase from "./ModalBase";
+import { Colors } from "../constants/colors";
 
-const NewPatientModal = ({ onPress }) => {
+const PatientAddModal = ({ onPress }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [text, setText] = useState("");
 
@@ -46,7 +47,7 @@ const NewPatientModal = ({ onPress }) => {
   );
 };
 
-export default NewPatientModal;
+export default PatientAddModal;
 
 const styles = StyleSheet.create({
   input: {
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     padding: 10,
     minWidth: 200,
     borderRadius: 8,
-    backgroundColor: "#ebf5fe",
+    backgroundColor: Colors.lightBlue,
     borderTopColor: "#e7f1f7",
     borderLeftColor: "#e7f1f7",
     borderBottomColor: "#f6f9fd",

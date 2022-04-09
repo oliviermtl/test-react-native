@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useState, useContext } from "react";
 import DateTimeContext from "../contexts/DateTimeContext";
-import { nDays, weekdayshort, months } from "../data/data";
+import { nDays, weekdayshort, months } from "../constants/data";
 
 const Calendar = () => {
   const { dateTime, setDateTime } = useContext(DateTimeContext);
@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   headerRow: {
-    // flex: 1,
     flexDirection: "row",
   },
 });

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import Button from "../components/Button";
+import { Colors } from "../constants/colors";
 
 export const Home = ({ navigation }) => {
   return (
@@ -8,12 +9,7 @@ export const Home = ({ navigation }) => {
       <Button
         title="Book a Doctor"
         onPress={() => navigation.navigate("Book a Doctor")}
-        style={{
-          paddingVertical: 10,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#59c2d1",
-        }}
+        style={styles.button}
       >
         <Text style={{ color: "white", fontWeight: "bold" }}>
           Book a Doctor
@@ -26,7 +22,12 @@ export const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    // justifyContent: "center",
     padding: 16,
+  },
+  button: {
+    paddingVertical: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.blue,
   },
 });

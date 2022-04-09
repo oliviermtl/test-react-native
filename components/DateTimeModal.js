@@ -4,7 +4,7 @@ import Calendar from "./Calendar";
 import TimeRanges from "./TimeRanges";
 import ModalBase from "./ModalBase";
 import DateTimeContext from "../contexts/DateTimeContext";
-import { monthsShort } from "../data/data";
+import { monthsShort } from "../constants/data";
 
 const DateTimeModal = () => {
   const [modalVisible, setModalVisible] = useState(false);

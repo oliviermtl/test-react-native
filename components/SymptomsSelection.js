@@ -4,7 +4,7 @@ import SymptomContext from "../contexts/SymptomsContext";
 import SymptomsSelected from "./SymptomsSelected";
 import SymptomsAvailable from "./SymptomsAvailable";
 
-const Symptoms = () => {
+const SymptomsSelection = () => {
   const { symptomList, setSymptomList } = useContext(SymptomContext);
 
   const toggleSymptom = (name) => {
@@ -17,15 +17,15 @@ const Symptoms = () => {
   };
   return (
     <View style={styles.container}>
-      {/* Symptoms selected */}
+      {/* SymptomsSelection selected */}
       <SymptomsSelected {...{ toggleSymptom }} />
-      {/* Symptoms available not selected */}
+      {/* SymptomsSelection available not selected */}
       <SymptomsAvailable {...{ toggleSymptom }} />
     </View>
   );
 };
 
-export default Symptoms;
+export default SymptomsSelection;
 
 const styles = StyleSheet.create({
   container: {

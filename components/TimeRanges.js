@@ -20,18 +20,9 @@ const TimeRanges = () => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          borderBottomColor: "#cfcfcf",
-          borderBottomWidth: 1,
-          marginBottom: 20,
-          marginTop: 10,
-        }}
-      />
-      <Text style={{ marginBottom: 10, color: "dimgray" }}>
-        Select a time slot
-      </Text>
-      <SafeAreaView style={{ flexDirection: "row" }}>
+      <View style={styles.divider} />
+      <Text style={styles.title}>Select a time slot</Text>
+      <SafeAreaView style={styles.listContainer}>
         <FlatList
           horizontal
           data={dateTime.time}
@@ -39,19 +30,16 @@ const TimeRanges = () => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-                style={{
-                  display: item.label === "Now" ? "none" : "flex",
-                  margin: 5,
-                  paddingVertical: 10,
-                  paddingHorizontal: 15,
-                  borderWidth: 1,
-                  borderRadius: 5,
-                  borderLeftWidth: item.selected ? 7 : 1,
-                  borderColor: item.selected ? "limegreen" : "dimgray",
-                }}
+                style={[
+                  styles.tag,
+                  {
+                    display: item.label === "Now" ? "none" : "flex",
+                    borderColor: item.selected ? "limegreen" : "rgb(28,30,33)",
+                  },
+                ]}
                 onPress={() => updateDateTime(item)}
               >
-                <Text style={{ color: "dimgray" }}>{item.label}</Text>
+                <Text style={styles.tagLabel}>{item.label}</Text>
               </TouchableOpacity>
             );
           }}
@@ -65,4 +53,21 @@ export default TimeRanges;
 
 const styles = StyleSheet.create({
   container: { margin: 10, flexDirection: "column" },
+  listContainer: { flexDirection: "row" },
+  tag: {
+    margin: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderLeftWidth: 7,
+  },
+  tagLabel: { color: "dimgray" },
+  divider: {
+    borderBottomColor: "#cfcfcf",
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    marginTop: 10,
+  },
+  title: { marginBottom: 10, color: "dimgray" },
 });

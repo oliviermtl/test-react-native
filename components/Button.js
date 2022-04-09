@@ -4,7 +4,10 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 export default function Button(props) {
   const { onPress, style, children } = props;
   return (
-    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.button, styles.shadowValue, style]}
+      onPress={onPress}
+    >
       {children}
     </TouchableOpacity>
   );
@@ -15,11 +18,14 @@ const styles = StyleSheet.create({
     margin: 8,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 8,
-    shadowOffset: { width: -1, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
     backgroundColor: "white",
+    borderRadius: 8,
+  },
+  shadowValue: {
+    shadowColor: "#000",
+    shadowOffset: { width: -1, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
     elevation: 4,
   },
 });

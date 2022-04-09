@@ -28,15 +28,7 @@ const ModalBase = ({
             </View>
             {children}
             <TouchableOpacity
-              style={{
-                width: "100%",
-                justifyContent: "center",
-                alignContent: "center",
-                padding: 10,
-                marginTop: 20,
-                backgroundColor: "rgb(28,30,33)",
-                borderRadius: 5,
-              }}
+              style={[styles.button, styles.shadowValue]}
               onPress={onPress ? onPress : () => setModalVisible(false)}
             >
               <Text style={{ textAlign: "center", color: "white" }}>Done</Text>
@@ -68,13 +60,12 @@ const styles = StyleSheet.create({
 
   modalView: {
     width: "100%",
-    // flexWrap: "wrap",
     alignItems: "center",
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: 14,
-    paddingBottom: 20,
+    paddingBottom: 30,
   },
   titleContainer: {
     marginTop: 10,
@@ -89,5 +80,24 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     color: "dimgray",
+  },
+  button: {
+    width: "100%",
+    justifyContent: "center",
+    alignContent: "center",
+    padding: 10,
+    marginTop: 20,
+    backgroundColor: "rgb(28,30,33)",
+    borderRadius: 5,
+  },
+  shadowValue: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
 });

@@ -1,8 +1,9 @@
 import { StyleSheet, Text, FlatList, View } from "react-native";
 import React, { useContext } from "react";
 import PatientContext from "../contexts/PatientsContext";
-import NewPatientModal from "./NewPatientModal";
+import PatientAddModal from "./PatientAddModal";
 import Button from "./Button";
+import { Colors } from "../constants/colors";
 
 const Patients = () => {
   const { patientList, setPatientList } = useContext(PatientContext);
@@ -29,7 +30,7 @@ const Patients = () => {
     <View style={styles.mainContainer}>
       <Text style={styles.title}>Choose Patient :</Text>
       <View style={styles.container}>
-        <NewPatientModal onPress={addPatient} />
+        <PatientAddModal onPress={addPatient} />
         <FlatList
           data={patientList.patients}
           horizontal={true}
@@ -72,8 +73,12 @@ const styles = StyleSheet.create({
 
     alignItems: "center",
   },
-  patientSelected: { borderColor: "#59c2d1", borderWidth: 1 },
-  patientNotSelected: { color: "dimgray" },
+  patientSelected: { borderColor: Colors.blue, borderWidth: 1 },
+  patientNotSelected: {
+    color: "dimgray",
+    borderWidth: 1,
+    borderColor: "#efefef",
+  },
   addButton: { marginRight: 10, color: "dimgray" },
   patient: { marginLeft: 10, color: "dimgray" },
 });

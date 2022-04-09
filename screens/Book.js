@@ -2,13 +2,13 @@ import { StyleSheet, View, TouchableOpacity, Text, Alert } from "react-native";
 import React, { useContext } from "react";
 import SymptomSearchAndTime from "../components/SymptomSearchAndTime";
 import Patients from "../components/Patients";
-import Symptoms from "../components/Symptoms";
-import ToggleSwitch from "../components/ToggleSwitch";
+import SymptomsSelection from "../components/SymptomsSelection";
 import ConsultModeContext from "../contexts/ConsultModeContext";
 import DateTimeContext from "../contexts/DateTimeContext";
 import PatientContext from "../contexts/PatientsContext";
 import SymptomContext from "../contexts/SymptomsContext";
-import { months } from "../data/data";
+import { months } from "../constants/data";
+import ConsultModeSwitch from "../components/ConsultModeSwitch";
 
 export const Book = () => {
   const { mode } = useContext(ConsultModeContext);
@@ -39,10 +39,10 @@ export const Book = () => {
   };
   return (
     <View style={styles.container}>
-      <ToggleSwitch />
+      <ConsultModeSwitch />
       <Patients />
       <SymptomSearchAndTime />
-      <Symptoms />
+      <SymptomsSelection />
       <TouchableOpacity
         style={{
           width: "100%",

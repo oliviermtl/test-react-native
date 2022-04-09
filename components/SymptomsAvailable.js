@@ -2,6 +2,7 @@ import { StyleSheet, Text, SafeAreaView, FlatList, View } from "react-native";
 import React, { useContext } from "react";
 import SymptomContext from "../contexts/SymptomsContext";
 import Button from "./Button";
+import { Colors } from "../constants/colors";
 
 const SymptomsAvailable = ({ toggleSymptom }) => {
   const { symptomList } = useContext(SymptomContext);
@@ -13,7 +14,7 @@ const SymptomsAvailable = ({ toggleSymptom }) => {
         data={symptomList.symptoms.filter((symptom) => !symptom.selected)}
         numColumns={3}
         keyExtractor={(item) => "symptomavailable" + item.name}
-        renderItem={({ item, index }) => {
+        renderItem={({ item }) => {
           return (
             <View style={styles.symptomContainer}>
               <Button
@@ -62,5 +63,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  symptomName: { fontSize: 13, color: "#59c2d1", fontWeight: "bold" },
+  symptomName: { fontSize: 13, color: Colors.blue, fontWeight: "bold" },
 });

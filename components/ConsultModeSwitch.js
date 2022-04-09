@@ -1,12 +1,21 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
+import { Colors } from "../constants/colors";
+import ConsultModeContext from "../contexts/ConsultModeContext";
 
-const ToggleAnimated = ({ onPress, value }) => {
+const ConsultModeSwitch = () => {
+  const [switchState, setSwitchState] = useState(false);
+  const { setMode } = useContext(ConsultModeContext);
+
+  useEffect(() => {
+    setMode(switchState ? "Video" : "Doctor");
+  }, [switchState]);
+
   const offset = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -17,27 +26,27 @@ const ToggleAnimated = ({ onPress, value }) => {
   });
 
   useEffect(() => {
-    offset.value = withSpring(value ? 150 : 0, {
+    offset.value = withSpring(switchState ? 150 : 0, {
       mass: 0.5,
       overshootClamping: true,
     });
-  }, [value]);
+  }, [switchState]);
 
   return (
-    <View>
-      <Pressable onPress={() => onPress(!value)}>
-        <View style={[styles.container]}>
+    <View style={styles.container}>
+      <Pressable onPress={() => setSwitchState(!switchState)}>
+        <View style={[styles.switchContainer]}>
           <Animated.View
             style={[styles.toggle, styles.shadowValue, animatedStyles]}
           >
             <Text style={styles.toggleText}>
-              {value ? "Video Consult" : "Doctor"}
+              {switchState ? "Video Consult" : "Doctor"}
             </Text>
           </Animated.View>
           <View style={styles.underlay}>
-            <View style={styles.underlayText}>
-              <Text>Doctor</Text>
-              <Text>Video Consult</Text>
+            <View style={styles.underlayTextContainer}>
+              <Text style={styles.underlayText}>Doctor</Text>
+              <Text style={styles.underlayText}>Video Consult</Text>
             </View>
           </View>
         </View>
@@ -46,14 +55,18 @@ const ToggleAnimated = ({ onPress, value }) => {
   );
 };
 
-export default ToggleAnimated;
+export default ConsultModeSwitch;
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  switchContainer: {
     width: 300,
     paddingVertical: 0,
     paddingHorizontal: 0,
     borderRadius: 5,
-    backgroundColor: "#ebf5fe",
+    backgroundColor: Colors.lightBlue,
   },
   toggle: {
     width: 150,
@@ -65,7 +78,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   toggleText: {
-    color: "#59c2d1",
+    color: Colors.blue,
     fontWeight: "bold",
   },
 
@@ -86,9 +99,13 @@ const styles = StyleSheet.create({
     left: 55,
     right: 35,
   },
-  underlayText: {
+
+  underlayTextContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     zIndex: 0,
+  },
+  underlayText: {
+    color: "dimgray",
   },
 });
