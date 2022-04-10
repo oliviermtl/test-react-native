@@ -1,0 +1,10 @@
+{
+  "Symptoms": {
+    "name": {
+      "string": {}
+    },
+    "selected": {
+      "boolean": {}
+    }
+  }
+}
