@@ -35,7 +35,7 @@ export const useGetSymptoms = () =>
 
 const fetchSymptoms = async () => {
   const { data } = await axios.get(
-    `https://mockend.com/oliviermtl/test-react-native/Symptoms`
+    `https://mockend.com/oliviermtl/test-react-native/Symptoms/.mockend.json`
   );
   return data;
 };
