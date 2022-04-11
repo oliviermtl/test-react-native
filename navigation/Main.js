@@ -2,7 +2,6 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Book } from "../screens/Book";
 import { Home } from "../screens/Home";
-import BookReactQuery from "../screens/BookReactQuery";
 
 const MainStack = createStackNavigator();
 
@@ -30,6 +29,5 @@ export const Main = () => (
         headerBackTitle: " ",
       }}
     />
-    <MainStack.Screen name="BookRQ" component={BookReactQuery} />
   </MainStack.Navigator>
 );

@@ -4,26 +4,21 @@ import PatientContext from "../contexts/PatientsContext";
 import PatientAddModal from "./PatientAddModal";
 import Button from "./Button";
 import { Colors } from "../constants/colors";
+import { useAddStorageItem, useUpdateStorageItem } from "../services";
 
-const Patients = () => {
-  const { patientList, setPatientList } = useContext(PatientContext);
-
-  const togglePatient = (name) => {
-    const newPatientList = patientList.patients.map((patient) =>
-      patient.name === name
-        ? { ...patient, selected: !patient.selected }
-        : patient
-    );
-    setPatientList({ patients: newPatientList });
+const Patients = ({ patientList }) => {
+  const updatePatientsList = useAddStorageItem("@patients");
+  const updatePatientInList = useUpdateStorageItem("@patients");
+  const togglePatient = (patient) => {
+    updatePatientInList.mutate(patient);
   };
 
-  const addPatient = (name) => {
-    const nameExists = patientList.patients.some((item) => item.name === name);
-    const newPatientList = patientList.patients.concat({
-      name: name,
-      selected: false,
-    });
-    if (!nameExists) setPatientList({ patients: newPatientList });
+  const addPatient = (patient) => {
+    const newPatient = { name: patient, selected: false };
+    const isDuplicate = patientList.some((p) => p.name === patient.name);
+    if (!isDuplicate) {
+      updatePatientsList.mutate(newPatient);
+    }
   };
 
   return (
@@ -32,13 +27,13 @@ const Patients = () => {
       <View style={styles.container}>
         <PatientAddModal onPress={addPatient} />
         <FlatList
-          data={patientList.patients}
+          data={patientList}
           horizontal={true}
           keyExtractor={(item) => "patient" + item.name}
-          renderItem={({ item, index }) => {
+          renderItem={({ item }) => {
             return (
               <Button
-                onPress={() => togglePatient(item.name)}
+                onPress={() => togglePatient(item)}
                 style={[
                   item.selected
                     ? styles.patientSelected

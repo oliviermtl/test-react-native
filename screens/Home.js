@@ -15,16 +15,6 @@ export const Home = ({ navigation }) => {
           Book a Doctor
         </Text>
       </Button>
-
-      <Button
-        title="Book a Doctor with React-Query"
-        onPress={() => navigation.navigate("BookRQ")}
-        style={styles.button}
-      >
-        <Text style={{ color: "white", fontWeight: "bold" }}>
-          Book a Doctor with React-Query
-        </Text>
-      </Button>
     </View>
   );
 };

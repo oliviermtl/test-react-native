@@ -10,7 +10,8 @@ export const useGetStorage = (storageKey) => {
   });
 };
 
-export const useUpdateStorage = (storageKey) => {
+// Add item to list
+export const useAddStorageItem = (storageKey) => {
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -30,12 +31,26 @@ export const useUpdateStorage = (storageKey) => {
   );
 };
 
-export const useGetSymptoms = () =>
-  useQuery(["@symptoms"], () => fetchSymptoms());
-
-const fetchSymptoms = async () => {
-  const { data } = await axios.get(
-    `https://mockend.com/oliviermtl/test-react-native/Symptoms/.mockend.json`
+//update specific item in list stored in AsyncStorage
+export const useUpdateStorageItem = (storageKey) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    storageKey,
+    async (newItem) => {
+      console.log(newItem);
+      const result = await AsyncStorage.getItem(storageKey);
+      const currentList = result ? JSON.parse(result) : [];
+      const newList = currentList.map((item) => {
+        if (item.name === newItem.name) console.log(item);
+        return item.name === newItem.name
+          ? { ...item, selected: !item.selected }
+          : item;
+      });
+      await AsyncStorage.setItem(storageKey, JSON.stringify(newList));
+      return newList;
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(storageKey),
+    }
   );
-  return data;
 };

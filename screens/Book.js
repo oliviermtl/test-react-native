@@ -9,14 +9,14 @@ import PatientContext from "../contexts/PatientsContext";
 import SymptomContext from "../contexts/SymptomsContext";
 import { months } from "../constants/data";
 import ConsultModeSwitch from "../components/ConsultModeSwitch";
+import { useGetStorage } from "../services";
 
 export const Book = () => {
   const { mode } = useContext(ConsultModeContext);
   const { dateTime } = useContext(DateTimeContext);
-  const { patientList } = useContext(PatientContext);
-  const { symptomsList } = useContext(SymptomContext);
-
-  const patients = patientList.patients.filter((patient) => patient.selected);
+  // const { patientList } = useContext(PatientContext);
+  const { data: patientList, isLoading, isError } = useGetStorage("@patients");
+  const patients = patientList?.filter((patient) => patient.selected) || [];
   const selectedRange = dateTime.time.filter(
     (range) => range.selected === true
   )[0].label;
@@ -25,6 +25,8 @@ export const Book = () => {
     selectedRange === "Now" ? selectedRange : `${selectedDay} ${selectedRange}`;
 
   const submit = () => {
+    console.log("submit visit");
+    console.log(patients);
     const message = `You have booked a ${mode} consultation for${patients.map(
       (patient) => ` ${patient.name}`
     )} on ${displayDate}`;
@@ -40,7 +42,7 @@ export const Book = () => {
   return (
     <View style={styles.container}>
       <ConsultModeSwitch />
-      <Patients />
+      <Patients {...{ patientList }} />
       <SymptomSearchAndTime />
       <SymptomsSelection />
       <TouchableOpacity
