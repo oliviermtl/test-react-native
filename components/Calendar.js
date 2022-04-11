@@ -5,21 +5,22 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import DateTimeContext from "../contexts/DateTimeContext";
 import { nDays, weekdayshort, months } from "../constants/data";
 
 const Calendar = () => {
   const { dateTime, setDateTime } = useContext(DateTimeContext);
-  const day = dateTime.date.day;
-  const month = dateTime.date.month;
-  const year = dateTime.date.year;
+  const [selectedMonth, setSelectedMonth] = useState(month);
 
-  let firstDay = new Date(year, month, 1).getDay();
-  const generateMatrix = () => {
+  // date in context
+  const { day, month, year } = dateTime.date;
+
+  let firstDayOfTheMonth = new Date(year, month, 1).getDay();
+  const generateMonthMatrix = () => {
     const matrix = [];
     matrix.push(...weekdayshort);
-    const maxDays = nDays[month] + firstDay;
+    const maxDays = nDays[month] + firstDayOfTheMonth;
     if (month == 1) {
       // February
       if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
@@ -28,7 +29,7 @@ const Calendar = () => {
     }
     let counter = 1;
     for (let i = 0; i < 35; i++) {
-      if (i < firstDay || i >= maxDays) {
+      if (i < firstDayOfTheMonth || i >= maxDays) {
         matrix.push(-1);
       } else {
         matrix.push(counter);
@@ -38,18 +39,25 @@ const Calendar = () => {
 
     return matrix;
   };
-  const matrix = generateMatrix();
+  const matrix = generateMonthMatrix();
 
   const updateMonth = (n) => {
     setDateTime({ ...dateTime, date: { ...dateTime.date, month: month + n } });
   };
 
   const updateDay = (item) => {
+    setSelectedMonth(month);
     setDateTime({ ...dateTime, date: { ...dateTime.date, day: item } });
   };
+
+  // Today
   const currentDay = new Date().getDate();
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    setSelectedMonth(month);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -87,14 +95,16 @@ const Calendar = () => {
                   <TouchableOpacity
                     disabled={
                       index < 7 ||
-                      (item < currentDay && month < currentMonth - 1) ||
+                      (item < currentDay && month <= currentMonth) ||
                       month <= currentMonth - 1
                     }
-                    onPress={() => updateDay(item)}
+                    onPress={() => {
+                      updateDay(item);
+                    }}
                     style={{
                       backgroundColor:
                         item == day &&
-                        month == currentMonth &&
+                        month == selectedMonth &&
                         year == currentYear
                           ? "limegreen"
                           : "#fff",
@@ -117,7 +127,7 @@ const Calendar = () => {
                             : "normal",
                         color:
                           item == day &&
-                          month == currentMonth &&
+                          month == selectedMonth &&
                           year == currentYear
                             ? "#fff"
                             : index < 7

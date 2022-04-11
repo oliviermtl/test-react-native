@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     paddingLeft: 12,
     backgroundColor: Colors.lightBlue,
-    minWidth: 200,
+    minWidth: 100,
     borderRadius: 8,
     borderWidth: 1,
     borderTopColor: "#e7f1f7",
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
 
   placeholder: {
-    width: 200,
+    minWidth: 150,
     marginLeft: 10,
     color: "dimgray",
     textAlignVertical: "center",

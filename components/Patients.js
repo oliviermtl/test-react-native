@@ -1,6 +1,5 @@
 import { StyleSheet, Text, FlatList, View } from "react-native";
-import React, { useContext } from "react";
-import PatientContext from "../contexts/PatientsContext";
+import React from "react";
 import PatientAddModal from "./PatientAddModal";
 import Button from "./Button";
 import { Colors } from "../constants/colors";
