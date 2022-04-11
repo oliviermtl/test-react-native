@@ -2,11 +2,12 @@ import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 export default function Button(props) {
-  const { onPress, style, children } = props;
+  const { onPress, style, children, disabled = false } = props;
   return (
     <TouchableOpacity
       style={[styles.button, styles.shadowValue, style]}
       onPress={onPress}
+      disabled={disabled}
     >
       {children}
     </TouchableOpacity>
